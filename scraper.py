@@ -36,8 +36,11 @@ def getFeaturesSPON(in_query):
             headline="no"
     else:
         headline = "no"
-    if in_query.find("a"):    
-        link = "http://www.spiegel.de" + in_query.a["href"]
+    if in_query.find("a"):
+        if in_query.a["href"][:4] == "http":
+            link = in_query.a["href"]
+        else:
+            link = "http://www.spiegel.de" + in_query.a["href"]
     else:
         link = "no"
     if in_query.find("p"):
@@ -48,7 +51,7 @@ def getFeaturesSPON(in_query):
 
 def connect_db():
     try:
-        conn = sqlite3.connect("db/spon.db")
+        conn = sqlite3.connect("/home/Raketenpaule/mysite/SpiegelScraper/db/spon.db")
     except Error as e:
         print(e)
     return conn
