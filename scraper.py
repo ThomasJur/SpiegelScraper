@@ -18,7 +18,6 @@ def scrapeArticleSPON():
             headline, text, link = getFeaturesSPON(element)
             c = conn.cursor()
             if not ((headline=="no") or (text == "no") or (link == "no")):
-                print("Article {} \n".format(ind+1) + "Headline: " + headline + "\n" + "Link: " + link + "\n" + "Text: " + text + "\n")
                 if rowExists(conn, headline):
                     c.execute(sql_insert,(headline, link, text, str(getTime())))
     conn.commit()
